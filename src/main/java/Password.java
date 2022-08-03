@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Password {
     private boolean isContainUppercase;
@@ -7,12 +7,25 @@ public class Password {
     private boolean isContainSymbols;
     private int length;
 
+    int counter = 0;
 
     String upperCase;
     String lowerCase;
     String numbers;
-
     String symbols;
+
+
+    String[] symbolsArr = {"~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","|","?",",","."};
+    String[] upperCaseLettersArr ={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","V","Y","Z","Q","W","X"};
+    String[] lowerCaseLettersArr ={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","v","y","z","q","w","x"};
+    int[] numbersArr = {1,2,3,4,5,6,7,8,9,0};
+
+    int rndSymbols;
+    int rndUpperCaseLetters;
+    int rndLowerCaseLetters;
+    int rndNumbers;
+
+    String generatedPassword = "";
     public void getPassword()
     {
         System.out.println("Would you like to have your password Uppercase letter in it?(y/n)");
@@ -34,15 +47,6 @@ public class Password {
 
             setUserPasswordConditions();
 
-            System.out.println(getLength() + " " + isContainUppercase() +" " +isContainLowercase() +" "+ isContainNumbers()+" "+isContainSymbols());
-
-
-
-
-
-
-
-
 
         }catch (Exception e)
         {
@@ -50,16 +54,83 @@ public class Password {
         }
     }
 
+    public void generatePassword(){
+
+
+        if (isContainSymbols()) {
+             rndSymbols = new Random().nextInt(symbolsArr.length);
+             generatedPassword+= symbolsArr[rndSymbols]+"";
+        }
+
+        if (isContainUppercase()) {
+            rndUpperCaseLetters = new Random().nextInt(upperCaseLettersArr.length);
+            generatedPassword+= upperCaseLettersArr[rndUpperCaseLetters]+"";
+        }
+
+        if (isContainLowercase()) {
+            rndLowerCaseLetters = new Random().nextInt(lowerCaseLettersArr.length);
+            generatedPassword+= lowerCaseLettersArr[rndLowerCaseLetters]+"";
+        }
+
+        if (isContainNumbers()) {
+            rndNumbers = new Random().nextInt(numbersArr.length);
+            generatedPassword+= numbersArr[rndNumbers]+"";
+        }
+
+
+        if (getLength()>0){
+            if (isContainUppercase()) {
+                for (int i = 0; i < getLength()-counter; i++) {
+                    rndUpperCaseLetters = new Random().nextInt(upperCaseLettersArr.length);
+                    generatedPassword+= upperCaseLettersArr[rndUpperCaseLetters]+"";
+                }
+            } else if (isContainLowercase()) {
+                    for (int i = 0; i < getLength()-counter; i++) {
+                        rndLowerCaseLetters = new Random().nextInt(lowerCaseLettersArr.length);
+                        generatedPassword+= lowerCaseLettersArr[rndLowerCaseLetters]+"";
+                    }
+            }
+            else if(isContainSymbols()) {
+                for (int i = 0; i < getLength() - counter; i++) {
+                    rndSymbols = new Random().nextInt(symbolsArr.length);
+                    generatedPassword += symbolsArr[rndSymbols] + "";
+                }
+            } else if (isContainNumbers()) {
+                for (int i = 0; i < getLength() - counter; i++) {
+                    rndNumbers = new Random().nextInt(numbersArr.length);
+                    generatedPassword += numbersArr[rndNumbers] + "";
+                }
+            }
+        }
+
+        System.out.println(generatedPassword);
+
+    }
+
+
+
 
     public void setUserPasswordConditions(){
-        setContainUppercase(upperCase.equals("y"));
-
-        setContainLowercase(lowerCase.equals("y"));
-
-        setContainNumbers(numbers.equals("y"));
-
-        setContainSymbols(symbols.equals("y"));
-
+       if (upperCase.equals("y"))
+        {
+            setContainUppercase(true);
+            counter++;
+        }
+        if (lowerCase.equals("y"))
+        {
+            setContainLowercase(true);
+            counter++;
+        }
+        if (numbers.equals("y"))
+        {
+            setContainNumbers(true);
+            counter++;
+        }
+        if (symbols.equals("y"))
+        {
+            setContainSymbols(true);
+            counter++;
+        }
     }
 
     public boolean isContainUppercase() {
