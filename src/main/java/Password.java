@@ -26,6 +26,22 @@ public class Password {
     int rndNumbers;
 
     String generatedPassword = "";
+
+    public void checkPasswordStrength(){
+        if (counter >= 4 && getLength() >= 8){
+            if (counter >= 4 && getLength() >= 16) {
+                System.out.println("great");
+            }
+            else {
+                System.out.println("good");
+            }
+        } else if (counter >= 4) {
+            System.out.println("medium");
+        } else {
+            System.out.println("weak");
+        }
+    }
+
     public void getPassword()
     {
         System.out.println("Would you like to have your password Uppercase letter in it?(y/n)");
@@ -45,9 +61,6 @@ public class Password {
             System.out.println("How long is gonna be the length of your password?");
             setLength(input.nextInt());
 
-            setUserPasswordConditions();
-
-
         }catch (Exception e)
         {
             System.out.println(e);
@@ -55,29 +68,6 @@ public class Password {
     }
 
     public void generatePassword(){
-
-
-        if (isContainSymbols()) {
-             rndSymbols = new Random().nextInt(symbolsArr.length);
-             generatedPassword+= symbolsArr[rndSymbols]+"";
-        }
-
-        if (isContainUppercase()) {
-            rndUpperCaseLetters = new Random().nextInt(upperCaseLettersArr.length);
-            generatedPassword+= upperCaseLettersArr[rndUpperCaseLetters]+"";
-        }
-
-        if (isContainLowercase()) {
-            rndLowerCaseLetters = new Random().nextInt(lowerCaseLettersArr.length);
-            generatedPassword+= lowerCaseLettersArr[rndLowerCaseLetters]+"";
-        }
-
-        if (isContainNumbers()) {
-            rndNumbers = new Random().nextInt(numbersArr.length);
-            generatedPassword+= numbersArr[rndNumbers]+"";
-        }
-
-
         if (getLength()>0){
             if (isContainUppercase()) {
                 for (int i = 0; i < getLength()-counter; i++) {
@@ -102,13 +92,31 @@ public class Password {
                 }
             }
         }
-
         System.out.println(generatedPassword);
-
     }
 
 
+    public void firstConditionsAfterSettingPassword(){
+        if (isContainSymbols()) {
+            rndSymbols = new Random().nextInt(symbolsArr.length);
+            generatedPassword+= symbolsArr[rndSymbols]+"";
+        }
 
+        if (isContainUppercase()) {
+            rndUpperCaseLetters = new Random().nextInt(upperCaseLettersArr.length);
+            generatedPassword+= upperCaseLettersArr[rndUpperCaseLetters]+"";
+        }
+
+        if (isContainLowercase()) {
+            rndLowerCaseLetters = new Random().nextInt(lowerCaseLettersArr.length);
+            generatedPassword+= lowerCaseLettersArr[rndLowerCaseLetters]+"";
+        }
+
+        if (isContainNumbers()) {
+            rndNumbers = new Random().nextInt(numbersArr.length);
+            generatedPassword+= numbersArr[rndNumbers]+"";
+        }
+    }
 
     public void setUserPasswordConditions(){
        if (upperCase.equals("y"))

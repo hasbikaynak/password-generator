@@ -7,6 +7,9 @@ public class Main {
                 "Please follow the program`s leading");
         Password password = new Password();
         password.getPassword();
+        password.setUserPasswordConditions();
+        password.firstConditionsAfterSettingPassword();
         password.generatePassword();
+        password.checkPasswordStrength();
     }
 }
